@@ -5,7 +5,7 @@
 // you have to require the utils module and call adapter function
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const adapter  = new utils.Adapter('parser');
-let request;
+let got;
 let path;
 let fs;
 let states;
@@ -317,18 +317,20 @@ function analyseData(obj, data, error, callback) {
 
 function readLink(link, callback) {
     if (link.match(/^https?:\/\//)) {
-        request = request || require('request');
+        got = got || require('got')
 
         adapter.log.debug('Request URL: ' + link);
-        request({
-            'method': 'GET',
-            'uri': link,
-            'auth': {
-                'user': 'admin',
-                'pass': 'admin',
-                'sendImmediately': false
-            }
-        }, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
+
+        //}, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
+        try {
+            var response = await got(link);
+            adapter.log.debug('statusCode:', response.statusCode);
+	        adapter.log.debug('body:', response.body);
+            
+            callback( response.body, link );
+        } catch (error){
+            adapter.log.debug('got Error: ' + error);
+        }
     } else {
         path = path || require('path');
         fs   = fs   || require('fs');
