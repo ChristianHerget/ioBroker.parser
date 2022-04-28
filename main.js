@@ -329,9 +329,9 @@ function readLink(link, callback) {
                 rejectUnauthorized: false,
                 timeout: 60000,
                 auth: {
-                    user: user,
-                    pass: pw,
-                    sendImmediately: true
+                    user: "admin",
+                    pass: "admin",
+                    sendImmediately: false
                 }
             };
             
