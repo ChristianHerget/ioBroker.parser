@@ -320,7 +320,7 @@ function readLink(link, callback) {
 	
         adapter.log.debug('Request URL: ' + link);
 	    
-	http.get(link, res => {
+	http.get(link, (res, link) => {
 		let data = [];
 		adapter.log.debug('statusCode:', res.statusCode);
 		
