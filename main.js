@@ -312,18 +312,44 @@ function analyseData(obj, data, error, callback) {
         }
     }
 }
-
+sdfg
 
 function readLink(link, callback) {
     if (link.match(/^https?:\/\//)) {
         request = request || require('request');
+        const arr = link.match(/^(https?:\/\/)(\w+):(\w+)@(.+)$/);
+        
+        var requestParams;
+        
+        if (arr) {
+            link = arr[1] + arr[4];
+            const user = arr[2];
+            const pw   = arr[3];
+            
+            requestParams = {
+                url: link,
+                rejectUnauthorized: false,
+                timeout: 60000,
+                auth: {
+                    user: user,
+                    pass: pw,
+                    sendImmediately: true
+                }
+            };
+            
+            adapter.log.debug('Request URL: ' + link);
+            adapter.log.debug('Request User: ' + user);
+            adapter.log.debug('Request PW: ' + pw);
+        } else {
+            requestParams = {
+                url: link,
+                rejectUnauthorized: false,
+                timeout: 60000
+            };
 
-        adapter.log.debug('Request URL: ' + link);
-        request({
-            url: link,
-            rejectUnauthorized: false,
-            timeout: 60000
-        }, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
+            adapter.log.debug('Request URL: ' + link);
+        }
+        request(requestParams, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
     } else {
         path = path || require('path');
         fs   = fs   || require('fs');
@@ -348,7 +374,7 @@ function readLink(link, callback) {
     }
 }
 
-function poll(interval, callback) {
+function poll( interval, callback) {
     let id;
     // first mark all entries as not processed and collect the states for current interval tht are not already planned for processing
     const curStates = [];
