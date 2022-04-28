@@ -321,11 +321,11 @@ function readLink(link, callback) {
 
         adapter.log.debug('Request URL: ' + link);
         request({
-            method: 'GET',
-            url: link,
-            rejectUnauthorized: false,
-            timeout: 60000,
+            'method': 'GET',
+            'uri': link,
             'auth': {
+                'user': 'admin',
+                'pass': 'admin',
                 'sendImmediately': false
             }
         }, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
