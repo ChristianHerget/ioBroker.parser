@@ -333,10 +333,11 @@ function readLink(link, callback) {
 	  	const body = Buffer.concat(data).toString();
 	    	adapter.log.debug('Response ended: ' + body);
 	  	adapter.log.debug('orgLink: ' + orgLink);
-		orgCallback(body, orgLink);
+		orgCallback(null, body, orgLink);
 	  });
 	}).on('error', err => {
-	  console.log('Error: ', err.message);
+	  	console.log('Error: ', err.message);
+		orgCallback(err.message, null, orgLink);
 	});
 
         //}, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
