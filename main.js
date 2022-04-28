@@ -6,7 +6,6 @@ import got from 'got';
 // you have to require the utils module and call adapter function
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const adapter  = new utils.Adapter('parser');
-let got;
 let path;
 let fs;
 let states;
