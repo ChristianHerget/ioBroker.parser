@@ -170,6 +170,7 @@ function analyseDataForStates(curStates, link, data, error, callback) {
         }
     }
     adapter.log.debug('Process ' + JSON.stringify(linkStates) + ' for link ' + link);
+    adapter.log.debug('Data: ' + data);
     _analyseDataForStates(linkStates, data, error, callback);
 }
 
@@ -324,7 +325,7 @@ function readLink(link, callback) {
             url: link,
             rejectUnauthorized: false,
             timeout: 60000,
-            sendImmediately: true
+            sendImmediately: false
         }, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
     } else {
         path = path || require('path');
