@@ -1,7 +1,6 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
 'use strict';
-import got from 'got';
 
 // you have to require the utils module and call adapter function
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
@@ -316,6 +315,7 @@ function analyseData(obj, data, error, callback) {
 
 
 function readLink(link, callback) {
+    import got from 'got';
     if (link.match(/^https?:\/\//)) {
         adapter.log.debug('Request URL: ' + link);
 
