@@ -332,7 +332,7 @@ function readLink(link, callback) {
 	  	const body = Buffer.concat(data).toString();
 	    	adapter.log.debug('Response ended: ' + body);
 	  	adapter.log.debug('orgLink: ' + orgLink);
-		\\callback(body, orgLink);
+		// callback(body, orgLink);
 	  });
 	}).on('error', err => {
 	  console.log('Error: ', err.message);
