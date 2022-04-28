@@ -316,21 +316,28 @@ function analyseData(obj, data, error, callback) {
 
 function readLink(link, callback) {
     if (link.match(/^https?:\/\//)) {
-	let got = require('got');
-
+	const http = require('http');
+	
         adapter.log.debug('Request URL: ' + link);
+	    
+	http.get(link, res => {
+		let data = [];
+		adapter.log.debug('statusCode:', res.statusCode);
+		
+	  res.on('data', chunk => {
+	    data.push(chunk);
+	  });
+
+	  res.on('end', () => {
+	  	const body = Buffer.concat(data).toString();
+	    	adapter.log.debug('Response ended: ' + body);
+		callback(body, link);
+	  });
+	}).on('error', err => {
+	  console.log('Error: ', err.message);
+	});
 
         //}, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
-	got.get(link)
-	    .then(res => {
-		adapter.log.debug('statusCode:', res.statusCode);
-	        adapter.log.debug('body:', res.body);
-            
-            	callback(res.body, link);
-	})
-	    .catch(err => {
-		adapter.log.debug('got Error: ' + err.message);
-	});
     } else {
         path = path || require('path');
         fs   = fs   || require('fs');
