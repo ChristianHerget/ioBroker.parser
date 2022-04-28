@@ -170,6 +170,7 @@ function analyseDataForStates(curStates, link, data, error, callback) {
         }
     }
     adapter.log.debug('Process ' + JSON.stringify(linkStates) + ' for link ' + link);
+    adapter.log.debug('Data: ' + data);
     _analyseDataForStates(linkStates, data, error, callback);
 }
 
@@ -361,7 +362,7 @@ function poll(interval, callback) {
             curStates.push(id);
             if (curLinks.indexOf(states[id].native.link) === -1) {
                 curLinks.push(states[id].native.link);
-            }
+            
         }
     }
     adapter.log.debug('States for current Interval (' + interval + '): ' + JSON.stringify(curStates));
