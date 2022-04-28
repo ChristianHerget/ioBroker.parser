@@ -169,7 +169,7 @@ function analyseDataForStates(curStates, link, data, error, callback) {
         }
     }
     adapter.log.debug('Process ' + JSON.stringify(linkStates) + ' for link ' + link);
-    adapter.log.debug('Data: ' + data);
+    // adapter.log.debug('Data: ' + data);
     _analyseDataForStates(linkStates, data, error, callback);
 }
 
@@ -331,7 +331,7 @@ function readLink(link, callback) {
 
 	  res.on('end', () => {
 	  	const body = Buffer.concat(data).toString();
-	    	adapter.log.debug('Response ended: ' + body);
+	    	adapter.log.debug('Response ended: ');
 	  	adapter.log.debug('orgLink: ' + orgLink);
 		orgCallback(null, body, orgLink);
 	  });
