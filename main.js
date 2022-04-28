@@ -325,7 +325,11 @@ function readLink(link, callback) {
             url: link,
             rejectUnauthorized: false,
             timeout: 60000,
-            sendImmediately: false
+            'auth': {
+                'user': 'admin',
+                'pass': 'admin',
+                'sendImmediately': false
+            }
         }, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
     } else {
         path = path || require('path');
