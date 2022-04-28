@@ -338,7 +338,7 @@ function readLink(link, callback) {
             adapter.log.debug('Request URL: ' + arr[1] + arr[4]);
             adapter.log.debug('Request User: ' + user);
             adapter.log.debug('Request PW: ' + pw);
-            adapter.log.debug('Request: ' + requestParams);
+            adapter.log.debug('Request: ' + JSON.stringify(requestParams) );
         } else {
             requestParams = {
                 url: link,
