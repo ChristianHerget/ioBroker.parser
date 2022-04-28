@@ -312,7 +312,6 @@ function analyseData(obj, data, error, callback) {
         }
     }
 }
-sdfg
 
 function readLink(link, callback) {
     if (link.match(/^https?:\/\//)) {
