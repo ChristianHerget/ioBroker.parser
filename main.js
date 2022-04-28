@@ -320,7 +320,7 @@ function readLink(link, callback) {
 
         adapter.log.debug('Request URL: ' + link);
         request({
-            method: 'GET',
+            method: 'POST',
             url: link,
             rejectUnauthorized: false,
             timeout: 60000,
