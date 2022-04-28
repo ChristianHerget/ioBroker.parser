@@ -321,12 +321,11 @@ function readLink(link, callback) {
         var requestParams;
         
         if (arr) {
-            link = arr[1] + arr[4];
             const user = arr[2];
             const pw   = arr[3];
             
             requestParams = {
-                url: link,
+                url: arr[1] + arr[4],
                 rejectUnauthorized: false,
                 timeout: 60000,
                 auth: {
@@ -336,7 +335,7 @@ function readLink(link, callback) {
                 }
             };
             
-            adapter.log.debug('Request URL: ' + link);
+            adapter.log.debug('Request URL: ' + arr[1] + arr[4]);
             adapter.log.debug('Request User: ' + user);
             adapter.log.debug('Request PW: ' + pw);
         } else {
