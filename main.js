@@ -326,8 +326,6 @@ function readLink(link, callback) {
             rejectUnauthorized: false,
             timeout: 60000,
             'auth': {
-                'user': 'admin',
-                'pass': 'admin',
                 'sendImmediately': false
             }
         }, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
