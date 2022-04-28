@@ -1,6 +1,7 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
 'use strict';
+import got from 'got';
 
 // you have to require the utils module and call adapter function
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
@@ -317,17 +318,15 @@ function analyseData(obj, data, error, callback) {
 
 function readLink(link, callback) {
     if (link.match(/^https?:\/\//)) {
-        got = got || require('got')
-
         adapter.log.debug('Request URL: ' + link);
 
         //}, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
         try {
-            var response = await got(link);
+            const response = await got(link);
             adapter.log.debug('statusCode:', response.statusCode);
 	        adapter.log.debug('body:', response.body);
             
-            callback( response.body, link );
+            callback(response.body, link);
         } catch (error){
             adapter.log.debug('got Error: ' + error);
         }
