@@ -319,7 +319,7 @@ function readLink(link, callback) {
 	const http = require('http');
 	
         adapter.log.debug('Request URL: ' + link);
-	    
+	const orgLink = link;
 	http.get(link, (res, link) => {
 		let data = [];
 		adapter.log.debug('statusCode:', res.statusCode);
@@ -331,7 +331,8 @@ function readLink(link, callback) {
 	  res.on('end', () => {
 	  	const body = Buffer.concat(data).toString();
 	    	adapter.log.debug('Response ended: ' + body);
-		callback(body, link);
+	  	adapter.log.debug('orgLink: ' + orgLink);
+		\\callback(body, orgLink);
 	  });
 	}).on('error', err => {
 	  console.log('Error: ', err.message);
