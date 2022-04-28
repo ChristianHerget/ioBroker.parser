@@ -315,20 +315,22 @@ function analyseData(obj, data, error, callback) {
 
 
 function readLink(link, callback) {
-    import got from 'got';
     if (link.match(/^https?:\/\//)) {
+	let got = require('got');
+
         adapter.log.debug('Request URL: ' + link);
 
         //}, (error, response, body) => callback(!body ? error || JSON.stringify(response) : null, body, link));
-        try {
-            const response = await got(link);
-            adapter.log.debug('statusCode:', response.statusCode);
-	        adapter.log.debug('body:', response.body);
+	got.get(link)
+	    .then(res => {
+		adapter.log.debug('statusCode:', res.statusCode);
+	        adapter.log.debug('body:', res.body);
             
-            callback(response.body, link);
-        } catch (error){
-            adapter.log.debug('got Error: ' + error);
-        }
+            	callback(res.body, link);
+	})
+	    .catch(err => {
+		adapter.log.debug('got Error: ' + err.message);
+	});
     } else {
         path = path || require('path');
         fs   = fs   || require('fs');
