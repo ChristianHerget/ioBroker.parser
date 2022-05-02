@@ -336,7 +336,8 @@ function readLink(link, callback) {
 		orgCallback(null, body, orgLink);
 	  });
 	}).on('error', err => {
-	  	console.log('Error: ', err.message);
+	  	//console.log('Error: ', err.message);
+		adapter.log.debug('Error Response: ' + JSON.stringify(err) );
 		orgCallback(err.message, null, orgLink);
 	});
 
